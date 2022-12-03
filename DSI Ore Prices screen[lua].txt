@@ -1,0 +1,255 @@
+----------------Change These variables to adjust prices---------------------
+
+local hemaPrice = 0.1
+local bauxPrice = 0.2
+local coalPrice = 0.3
+local quarPrice = 0.4
+
+local limePrice = 0.5
+local chroPrice = 0.6
+local malaPrice = 0.7
+local natrPrice = 0.8
+
+local garnPrice = 0.9
+local petaPrice = 1.0
+local pyriPrice = 1.1
+local acanPrice = 1.2
+
+local cryoPrice = 1.3
+local cobaPrice = 1.4
+local goldPrice = 1.5
+local kolbPrice = 1.6
+
+local coluPrice = 1.7
+local rhodPrice = 1.8
+local illmPrice = 1.9
+local vanaPrice = 2.0
+
+--increasing this number will add more black border around the outside of the whole table.
+--Be careful though. Too much will skew the table. I recommend making this number 0 if you're
+--using a modern screen
+local tablePadding = 6  
+
+local fontStyle = "Play" --Other options are FiraMono, Montserrat, RefrigeratorDeluxe, RobotoCondensed, RobotoMono
+local fontSize = 34
+--______________________________________________________________________________________________--
+
+--!!!!!!!!!!!!!!!!Unless you know what you're doing, don't touch the stuff below!!!!!!!!!!!!--
+--______________________________________________________________________________________________--
+
+
+
+
+
+
+local rx, ry = getResolution()                     
+local font = loadFont(fontStyle, fontSize)    
+local tableVertSpacing = (ry-(tablePadding*2))/17
+local tableHorizSpacing = (rx-(tablePadding*2))/4
+local tableColorR = 184/255
+local tableColorG = 12/255
+local tableColorB = 0/255
+local tableColorA = 1
+
+--##Table Headings##--
+local headingLayer = createLayer()
+setNextFillColor(headingLayer, 90/255,90/255,90/255,.8)
+addBox(headingLayer, tablePadding, tablePadding+tableVertSpacing-2, rx-(tablePadding*2), (tableVertSpacing))
+
+setNextFillColor(headingLayer,0,0,0,1)
+setNextTextAlign(headingLayer, AlignH_Center, AlignV_Descender)
+addText(headingLayer, font, "Ore", tablePadding+((tableHorizSpacing)*.5), tablePadding+(tableVertSpacing*2))
+
+setNextFillColor(headingLayer,0,0,0,1)
+setNextTextAlign(headingLayer, AlignH_Center, AlignV_Descender)
+addText(headingLayer, font, "Price", tablePadding+((tableHorizSpacing*1.5)), tablePadding+(tableVertSpacing*2))
+
+setNextFillColor(headingLayer,0,0,0,1)
+setNextTextAlign(headingLayer, AlignH_Center, AlignV_Descender)
+addText(headingLayer, font, "Ore", tablePadding+((tableHorizSpacing*2.5)), tablePadding+(tableVertSpacing*2))
+
+setNextFillColor(headingLayer,0,0,0,1)
+setNextTextAlign(headingLayer, AlignH_Center, AlignV_Descender)
+addText(headingLayer, font, "Price", tablePadding+((tableHorizSpacing*3.5)), tablePadding+(tableVertSpacing*2))
+
+local lineLayer = createLayer()
+--draw horizontal lines of table
+for i=0,ry,1 do
+    setNextStrokeColor(lineLayer, tableColorR, tableColorG, tableColorB, tableColorA)               
+    addLine(lineLayer, tablePadding, tablePadding+(i*tableVertSpacing), rx-tablePadding, tablePadding+(i*tableVertSpacing))
+end
+
+--draw vertical lines of table
+for i=0,rx,1 do
+    setNextStrokeColor(lineLayer, tableColorR, tableColorG, tableColorB, tableColorA)               
+    addLine(lineLayer, tablePadding+(i*tableHorizSpacing), tablePadding, tablePadding+(i*tableHorizSpacing), ry-tablePadding)
+end
+
+--##Top Banner##--
+local bannerLayer = createLayer()
+setNextFillColor(bannerLayer, tableColorR, tableColorG, tableColorB, tableColorA)
+addBox(bannerLayer, tablePadding, tablePadding, rx-(tablePadding*2), tableVertSpacing)
+setNextTextAlign(bannerLayer, AlignH_Center, AlignV_Middle)
+setNextFillColor(bannerLayer,90/255, 90/255, 90/255,1)
+addText(bannerLayer, font, "DSI Ore Prices", rx/2, tablePadding+(tableVertSpacing/2))
+
+--##Text##--
+local textLayer = createLayer()
+
+local tier1s = {"Hematite","Bauxite","Coal","Quartz"}
+local tier2s = {"Limestone","Chromite","Malachite","Natron"}
+local tier3s = {"Garnierite","Petalite","Pyrite","Acanthite"}
+local tier4s = {"Cryolite","Cobaltite","Gold Nuggets","Kolbecktite"}
+local tier5s = {"Columbite","Rhodonite","Ilmenite","Vanadinite"}
+
+--Tier labels
+setNextFillColor(textLayer,0, 0, 0, 1)
+addBox(textLayer,tablePadding+((tableHorizSpacing*.5)), tablePadding+(tableVertSpacing*(2.05)), (rx/4)-(tablePadding*2), tableVertSpacing-4)
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, "Tier 1",tablePadding+((tableHorizSpacing*1)), tablePadding+(tableVertSpacing*(3)))
+
+setNextFillColor(textLayer,0, 0, 0, 1)
+addBox(textLayer,tablePadding+((tableHorizSpacing*2.5)), tablePadding+(tableVertSpacing*(2.05)), (rx/4)-(tablePadding*2), tableVertSpacing-4)
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, "Tier 2",tablePadding+((tableHorizSpacing*3)), tablePadding+(tableVertSpacing*(3)))
+
+setNextFillColor(textLayer,0, 0, 0, 1)
+addBox(textLayer,tablePadding+((tableHorizSpacing*.5)), tablePadding+(tableVertSpacing*(7.05)), (rx/4)-(tablePadding*2), tableVertSpacing-4)
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, "Tier 3",tablePadding+((tableHorizSpacing*1)), tablePadding+(tableVertSpacing*(8)))
+
+setNextFillColor(textLayer,0, 0, 0, 1)
+addBox(textLayer,tablePadding+((tableHorizSpacing*2.5)), tablePadding+(tableVertSpacing*(7.05)), (rx/4)-(tablePadding*2), tableVertSpacing-4)
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, "Tier 4",tablePadding+((tableHorizSpacing*3)), tablePadding+(tableVertSpacing*(8)))
+
+setNextFillColor(textLayer,0, 0, 0, 1)
+addBox(textLayer,tablePadding+((tableHorizSpacing*.5)), tablePadding+(tableVertSpacing*(12.05)), (rx/4)-(tablePadding*2), tableVertSpacing-4)
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, "Tier 5",tablePadding+((tableHorizSpacing*1)), tablePadding+(tableVertSpacing*(13)))
+
+--Tier1 Names
+for i=1,4,1 do
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, tier1s[i],tablePadding+((tableHorizSpacing*.5)), tablePadding+(tableVertSpacing*(i+3))) 
+end
+
+--Tier2 Names
+for i=1,4,1 do
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, tier2s[i],tablePadding+((tableHorizSpacing*2.5)), tablePadding+(tableVertSpacing*(i+3))) 
+end
+
+--Tier3 Names
+for i=1,4,1 do
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, tier3s[i],tablePadding+((tableHorizSpacing*.5)), tablePadding+(tableVertSpacing*(i+8))) 
+end
+
+--Tier4 Names
+for i=1,4,1 do
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, tier4s[i],tablePadding+((tableHorizSpacing*2.5)), tablePadding+(tableVertSpacing*(i+8))) 
+end
+
+--Tier5 Names
+for i=1,4,1 do
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, tier5s[i],tablePadding+((tableHorizSpacing*.5)), tablePadding+(tableVertSpacing*(i+13))) 
+end
+
+--##Price Text##--
+--Tier1
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, hemaPrice,tablePadding+((tableHorizSpacing*1.5)), tablePadding+(tableVertSpacing*(4)))
+
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, bauxPrice,tablePadding+((tableHorizSpacing*1.5)), tablePadding+(tableVertSpacing*(5)))
+
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, coalPrice,tablePadding+((tableHorizSpacing*1.5)), tablePadding+(tableVertSpacing*(6)))
+
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, quarPrice,tablePadding+((tableHorizSpacing*1.5)), tablePadding+(tableVertSpacing*(7)))
+
+--Tier2
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, limePrice,tablePadding+((tableHorizSpacing*3.5)), tablePadding+(tableVertSpacing*(4)))
+
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, chroPrice,tablePadding+((tableHorizSpacing*3.5)), tablePadding+(tableVertSpacing*(5)))
+
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, malaPrice,tablePadding+((tableHorizSpacing*3.5)), tablePadding+(tableVertSpacing*(6)))
+
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, natrPrice,tablePadding+((tableHorizSpacing*3.5)), tablePadding+(tableVertSpacing*(7)))
+
+--Tier3
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, garnPrice,tablePadding+((tableHorizSpacing*1.5)), tablePadding+(tableVertSpacing*(9)))
+
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, petaPrice,tablePadding+((tableHorizSpacing*1.5)), tablePadding+(tableVertSpacing*(10)))
+
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, pyriPrice,tablePadding+((tableHorizSpacing*1.5)), tablePadding+(tableVertSpacing*(11)))
+
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, acanPrice,tablePadding+((tableHorizSpacing*1.5)), tablePadding+(tableVertSpacing*(12)))
+
+--Tier4
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, cryoPrice,tablePadding+((tableHorizSpacing*3.5)), tablePadding+(tableVertSpacing*(9)))
+
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, cobaPrice,tablePadding+((tableHorizSpacing*3.5)), tablePadding+(tableVertSpacing*(10)))
+
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, goldPrice,tablePadding+((tableHorizSpacing*3.5)), tablePadding+(tableVertSpacing*(11)))
+
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, kolbPrice,tablePadding+((tableHorizSpacing*3.5)), tablePadding+(tableVertSpacing*(12)))
+
+--Tier5
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, coluPrice,tablePadding+((tableHorizSpacing*1.5)), tablePadding+(tableVertSpacing*(14)))
+
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, rhodPrice,tablePadding+((tableHorizSpacing*1.5)), tablePadding+(tableVertSpacing*(15)))
+
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, illmPrice,tablePadding+((tableHorizSpacing*1.5)), tablePadding+(tableVertSpacing*(16)))
+
+setNextTextAlign(textLayer, AlignH_Center, AlignV_Descender)
+setNextFillColor(textLayer,tableColorR, tableColorG, tableColorB, tableColorA)
+addText(textLayer, font, vanaPrice,tablePadding+((tableHorizSpacing*1.5)), tablePadding+(tableVertSpacing*(17)))
